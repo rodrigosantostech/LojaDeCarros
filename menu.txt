@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+<body>
+
+	<h:form>
+		<p:panel id="painelVendas">
+			<h:panelGrid id="painelMenu" columns="2">
+				<p:outputLabel for="marcaMenu" value="Marcas*: " />
+				<p:selectOneMenu id="marcaMenu" converter="conversorObjetoId" value="#{vendasMB.marcaSelecionada}">
+					<f:selectItem itemLabel="-Selecione-" itemValue="" />
+					<f:selectItems value="#{vendasMB.listaMarca}" var="marca" itemLabel="#{marca.nome}" itemValue="#{marca}" />
+					<p:ajax update="modeloMenu" listener="#{vendasMB.carregarModelos}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel for="modeloMenu" value="Modelos*: " />
+				<p:selectOneMenu id="modeloMenu"
+					value="#{vendasMB.modeloSelecionado}" converter="conversorObjetoId">
+					<f:selectItem itemLabel="--Selecione--" itemValue="" />
+					<f:selectItems value="#{vendasMB.listaModelo}" var="carro"
+						itemLabel="#{carro.modelo}" itemValue="#{carro}" />
+				</p:selectOneMenu>
+			</h:panelGrid>
+		</p:panel>
+	</h:form>
+
+</body>
+</html>
