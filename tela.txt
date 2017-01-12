@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+<body>
+
+	<h:form id="frmVendaCarros">
+		<p:outputPanel id="Vendas">
+			<h:panelGrid id="painel" columns="1">
+
+				<p:outputLabel for="marcaMenu" value="Marca: " />
+				<p:selectOneMenu id="marcaMenu" converter="conversorObjetoId"
+					value="#{vendasMB.marcaTeste}">
+					<f:selectItem itemLabel="--Selecione--" itemValue="" noSelectionOption="true"/>
+					<f:selectItems value="#{vendasMB.listaMarca}" var="marca"
+						itemLabel="#{marca.nome}" itemValue="#{marca}" />
+					<p:ajax event="change" update="modeloMenu"
+						listener="#{vendasMB.carregarModelos}" />
+				</p:selectOneMenu>
+
+
+				<p:outputLabel for="modeloMenu" value="Modelo: " />
+				<p:selectOneMenu id="modeloMenu" converter="conversorObjetoId"
+					value="#{vendasMB.modeloSelecionado}">
+					<f:selectItem itemLabel="--Selecione--" itemValue="" noSelectionOption="true"/>
+					<f:selectItems value="#{vendasMB.listaModelo}" var="carro"
+						itemLabel="#{carro.modelo}" itemValue="#{carro}" />
+					<p:ajax event="change" update="tableCarros"
+						listener="#{vendasMB.carregarDadosCarro}" />
+				</p:selectOneMenu>
+
+ 					<p:separator></p:separator>
+				<p:dataTable id="tableCarros" var="carro" value="#{vendasMB.listaDados}" style="margin-bottom:40px">
+					<f:facet name="header">
+            		Escolha o carro a ser vendido!!
+       			 </f:facet>
+					<p:column headerText="Cor" sortBy="#{carro.cor}">
+						<h:outputText value="#{carro.cor}" />
+					</p:column>
+					<p:column headerText="Ano" sortBy="#{carro.ano}">
+						<h:outputText value="#{carro.ano}" />
+					</p:column>
+					<p:column headerText="Preço de Compra" sortBy="#{carro.precoCompra}">
+						<h:outputText value="#{carro.precoCompra}" />
+					</p:column>
+					<p:column headerText="Preço de Venda" sortBy="#{carro.precoVenda}">
+						<h:outputText value="#{carro.precoVenda}" />
+					</p:column>
+				</p:dataTable>
+
+
+
+			</h:panelGrid>
+		</p:outputPanel>
+	</h:form>
+</body>
+</html>
